@@ -1,9 +1,18 @@
 package org.school.student.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "Subjects")
+@Table(name = "subjects")
 public class Subject {
 
     @Id
@@ -12,19 +21,9 @@ public class Subject {
 
     private String name;
 
-    public int getId() {
-        return id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id",nullable = false)
+    private Teacher teacher;
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

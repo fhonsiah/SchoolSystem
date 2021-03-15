@@ -1,7 +1,18 @@
 package org.school.student.entity;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "teachers")
 public class Teacher {
@@ -19,35 +30,10 @@ public class Teacher {
     @Column(name = "subject_name",nullable = false)
     private  String subject;
 
-    public Integer getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "subjects",fetch = FetchType.LAZY)
+    private Set<Subject> subjects;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
 }
