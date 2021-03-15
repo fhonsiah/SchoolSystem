@@ -1,5 +1,6 @@
 package org.school.student.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "teachers")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Teacher implements Serializable {
 
     @Id
@@ -28,9 +30,9 @@ public class Teacher implements Serializable {
     @Column(name = "second_name",nullable = false)
     private  String lastName;
 
-    @Column(name = "subject_name",nullable = false)
-    private  String subject;
-
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "subject_id",nullable = false)
+    private Subject subjects;
 
 
 

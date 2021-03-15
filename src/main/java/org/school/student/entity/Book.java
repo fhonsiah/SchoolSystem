@@ -1,5 +1,6 @@
 package org.school.student.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,29 +9,27 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "students")
+@Table(name = "books")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class Student  implements Serializable {
-
+public class Book implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "first_name",nullable = false)
-    private String firstName;
+    private String title;
+    private String author;
+    @Column(unique = true)
+    private String isbn;
 
-    @Column(name = "last_name",nullable = false)
-    private String lastName;
-
-    @Column(name = "age",nullable = false)
-    private Integer age;
-
-
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Page> pages;
 }
