@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "teachers")
-public class Teacher {
+public class Teacher implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,8 +31,7 @@ public class Teacher {
     @Column(name = "subject_name",nullable = false)
     private  String subject;
 
-    @OneToMany(mappedBy = "subjects",fetch = FetchType.LAZY)
-    private Set<Subject> subjects;
+
 
 
 
