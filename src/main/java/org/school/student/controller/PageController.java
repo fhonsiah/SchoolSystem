@@ -29,7 +29,12 @@ public class PageController {
     @GetMapping(value = "/pages",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllPage(){
         List<Page> pages = pageRepository.findAll();
-        return new ResponseEntity<>(pages, HttpStatus.OK);
+        if(pages.isEmpty()){
+            return new ResponseEntity<>(pages, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(pages, HttpStatus.OK);
+        }
+
     }
 
     @PostMapping(value= "/page/create",produces = MediaType.APPLICATION_JSON_VALUE)

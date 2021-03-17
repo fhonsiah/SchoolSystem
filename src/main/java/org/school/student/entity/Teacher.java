@@ -1,6 +1,9 @@
 package org.school.student.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +20,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "teachers")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Teacher implements Serializable {
 
     @Id
@@ -30,9 +32,10 @@ public class Teacher implements Serializable {
     @Column(name = "second_name",nullable = false)
     private  String lastName;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "subject_id",nullable = false)
-    private Subject subjects;
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,
+               cascade = CascadeType.ALL)
+    private Set<Subject> subjects;
 
 
 
