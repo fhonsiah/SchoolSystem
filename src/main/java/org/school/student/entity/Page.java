@@ -1,6 +1,7 @@
 package org.school.student.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "pages")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Page implements Serializable {
 
     @Id
@@ -26,6 +26,7 @@ public class Page implements Serializable {
     private String content;
     private String chapter;
 
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;

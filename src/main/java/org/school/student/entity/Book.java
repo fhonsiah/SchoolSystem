@@ -1,7 +1,9 @@
 package org.school.student.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,7 @@ public class Book implements Serializable {
     @Column(unique = true)
     private String isbn;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<Page> pages;
